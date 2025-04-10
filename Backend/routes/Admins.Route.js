@@ -122,9 +122,10 @@ router.post("/forgot", async (req, res) => {
     userId = user[0]?.nurseID;
     password = user[0]?.password;
   }
+
   if (type == "patient") {
     user = await PatientModel.find({ email });
-    userId = user[0]?.nurseID;
+    userId = user[0]?.patientID;
     password = user[0]?.password;
   }
 
@@ -140,9 +141,13 @@ router.post("/forgot", async (req, res) => {
     password = user[0]?.password;
   }
 
-  if (!user) {
+  if (!user || user.length === 0) {
     return res.send({ message: "User not found" });
   }
+
+  // ✅ Log user ID and password to the terminal
+  console.log("🔐 User ID:", userId);
+  console.log("🔑 Password:", password);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -163,7 +168,7 @@ router.post("/forgot", async (req, res) => {
     if (error) {
       return res.send(error);
     }
-    return res.send("Password reset email sent");
+    return res.send("Password reset email sent and logged to console.");
   });
 });
 
