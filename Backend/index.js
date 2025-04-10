@@ -1,6 +1,6 @@
 const express = require("express");
+require("dotenv").config(); // <-- Load env vars
 const { connection } = require("./configs/db");
-require("dotenv").config();
 const cors = require("cors");
 
 const adminRouter = require("./routes/Admins.Route");
@@ -16,6 +16,7 @@ const prescriptionRouter = require("./routes/Prescriptions.Route");
 const reportRouter = require("./routes/Reports.Route");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
@@ -36,13 +37,13 @@ app.use("/payments", paymentRouter);
 app.use("/prescriptions", prescriptionRouter);
 app.use("/reports", reportRouter);
 
-app.listen(process.env.port, async () => {
+app.listen(PORT, async () => {
   try {
     await connection;
     console.log("Connected to DB");
   } catch (error) {
     console.log("Unable to connect to DB");
-    console.log(error);
+    console.error(error);
   }
-  console.log(`Listening at port ${process.env.port}`);
+  console.log(`Listening at port ${PORT}`);
 });
