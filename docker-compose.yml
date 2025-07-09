@@ -20,7 +20,7 @@ services:
     mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - "27018:27019"
     volumes:
       - mongo-data:/data/db
     healthcheck:
