@@ -17,18 +17,18 @@ services:
     depends_on:
       - backend
 
-   mongo:
-  image: mongo
-  ports:
-    - "27018:27017"   # Host:Container
-  volumes:
-    - mongo-data:/data/db
-  healthcheck:
-    test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-    interval: 10s
-    timeout: 5s
-    retries: 5
-
+  services:
+  mongo:
+    image: mongo
+    ports:
+      - "27018:27017"    # ✅ Fix: expose 27017 in the container on host port 27018
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mongo-data:
