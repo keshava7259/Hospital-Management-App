@@ -7,7 +7,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - MONGO_URL=mongodb://mongo:27018/hospital-db
+      - MONGO_URL=mongodb://mongo:27017/hospital-db
       - PORT=5000
 
   frontend:
