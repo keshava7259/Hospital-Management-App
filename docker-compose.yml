@@ -27,8 +27,6 @@ services:
     healthcheck:
       test: ["CMD", "bash", "-c", "</dev/tcp/localhost/27017"]
       interval: 10s
-      timeout: 5s
-      retries: 5
 
 volumes:
   mongo-data:
